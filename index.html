@@ -133,9 +133,9 @@
                 <button class="px-10 py-4 bg-accent rounded-xl text-lg font-bold btn-glow transition-all flex items-center gap-2">
                     <i data-lucide="shopping-cart" class="w-5 h-5"></i> Purchase Now
                 </button>
-                <a href="https://discord.gg/REj77PDK4C" target="_blank" rel="noopener noreferrer" class="px-10 py-4 glass rounded-xl text-lg font-bold border border-white/10 hover:bg-white/5 transition-all flex items-center gap-2 discord-invite">
-                    <i data-lucide="message-square" class="w-5 h-5"></i> Join Discord
-                </a>
+                <a href="#" onclick="forceDiscordApp(event)" class="px-10 py-4 glass rounded-xl text-lg font-bold border border-white/10 hover:bg-white/5 transition-all flex items-center gap-2">
+    <i data-lucide="message-square" class="w-5 h-5"></i> Join Discord
+</a>
             </div>
         </div>
 
@@ -438,31 +438,23 @@
             });
         });
 
-        // Discord link fix - próbuje otworzyć bezpośrednio w aplikacji
-        document.querySelectorAll('.discord-invite').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Próba otwarcia w aplikacji Discord
-                const discordAppUrl = 'discord://invite/REj77PDK4C';
-                const discordWebUrl = 'https://discord.gg/REj77PDK4C';
-                
-                // Funkcja do sprawdzenia czy udało się otworzyć aplikację
-                const openDiscordApp = () => {
-                    const start = Date.now();
-                    window.location.href = discordAppUrl;
-                    
-                    // Jeśli po 1.5 sekundy nadal jesteśmy na stronie, otwieramy wersję webową
-                    setTimeout(() => {
-                        if (document.hasFocus()) {
-                            window.open(discordWebUrl, '_blank');
-                        }
-                    }, 1500);
-                };
-                
-                openDiscordApp();
-            });
-        });
+// --- FORCE DISCORD APP LOGIC ---
+function forceDiscordApp(e) {
+    e.preventDefault(); // Blokuje domyślne zachowanie linku
+    
+    // 1. Próbuje wymusić otwarcie aplikacji Discord używając Deep Linku
+    window.location.href = 'discord://-/invite/r56VF8R7';
+    
+    // 2. Fallback: Jeśli po 500ms nic się nie wydarzy (np. użytkownik nie ma pobranej apki), 
+    // odpalamy normalny link w nowej karcie przeglądarki
+    setTimeout(() => {
+        window.open('https://discord.gg/r56VF8R7', '_blank');
+    }, 500);
+}
+
     </script>
+
+
+
 </body>
 </html>
